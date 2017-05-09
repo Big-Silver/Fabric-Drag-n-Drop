@@ -1,13 +1,13 @@
 $(function () {		
-    var canvas = new fabric.Canvas('canvas');
-    fabric.Object.prototype.transparentCorners = false;
+    var canvas = new fabric.Canvas('canvas', { isDrawingMode: false });
 
-    canvas.setHeight(700);
-    canvas.setWidth(500);
+    fabric.Object.prototype.transparentCorners = false;
+    canvas.setHeight(800);
+    canvas.setWidth(650);
 
     var _mouseX, _mouseY, _json_type;
 
-    var json_rect, json_triangle , json_circle; 
+    var json_rect, json_triangle , json_circle, json_text; 
 
     canvas.on('object:moving', function (e) {
         var obj = e.target;
@@ -34,6 +34,17 @@ $(function () {
         scroll: false
     });
 
+    $("#select").click(function(){
+        canvas.isDrawingMode = false;
+    });
+    $("#draw").click(function(){
+        canvas.isDrawingMode = true;
+    });
+    $("#delete").click(function(){
+        canvas.isDrawingMode = false;
+        deleteObjects();
+    });
+
     $("#canvas").droppable({
         cursor: "move",
         accept: ".mozgat",
@@ -42,16 +53,19 @@ $(function () {
             console.log(ui);
             if (ui.draggable.context.lastElementChild.id == "item_1"){
                 _json_type = "rect";
-            }else if (ui.draggable.context.lastElementChild.id == "item_2") {
+            } else if (ui.draggable.context.lastElementChild.id == "item_2") {
                 _json_type = "triangle";
-            }else if (ui.draggable.context.lastElementChild.id == "item_3") {
+            } else if (ui.draggable.context.lastElementChild.id == "item_3") {
                 _json_type = "circle";
-            }else {
+            } else  if (ui.draggable.context.lastElementChild.id == "item_4") {
+                _json_type = "text";
+            } else {
                 console.log("error is occured.")
             }
-            console.log(event.pageX + " , " + event.pageY)
+
             _mouseX = event.pageX - 300;
             _mouseY = event.pageY - 20;
+
             json_rect = '{ "angle" : 0 ,' +
                 ' "fill" : "#faa" ,' +
                 ' "flipX" : false ,' +
@@ -80,7 +94,6 @@ $(function () {
                 ' "type" : "rect" ,' +
                 ' "visible" : true ,' +
                 ' "width" : 100 }';
-
 
             json_triangle = '{ "angle" : 0 ,' +
                 ' "fill" : "#ff8a1b" ,' +
@@ -137,6 +150,47 @@ $(function () {
                 ' "visible" : true ,' +
                 ' "width" : 100 }';
 
+            json_text = '{ "angle" : 0 ,' +
+                ' "backgroundColor" : "" ,' +
+                ' "fill" : "rgb(0,0,0)" ,' +
+                ' "flipX" : false ,' +
+                ' "flipY" : false ,' +
+                ' "fontFamily" : "Times New Roman" ,' +
+                ' "fontSize" : 40 ,' +
+                ' "fontStyle" : "" ,' +
+                ' "fontWeight" : "normal" ,' +
+                ' "hasBorders" : true ,' +
+                ' "hasControls" : true ,' +
+                ' "hasRotatingPoint" : true ,' +
+                ' "height" : 52 ,' +
+                ' "left" : ' + _mouseX + ' , ' +
+                ' "lineHeight" : 1.3 ,' +
+                ' "opacity" : 1 ,' +
+                ' "originX" : "center" ,' +
+                ' "originY" : "center" ,' +
+                ' "overlayFill" : null ,' +
+                ' "path" : null ,' +
+                ' "perPixelTargetFind" : false ,' +
+                ' "scaleX" : 1 ,' +
+                ' "scaleY" : 1 ,' +
+                ' "selectable" : true ,' +
+                ' "shadow" : null ,' +
+                ' "stroke" : null ,' +
+                ' "strokeDashArray" : null ,' +
+                ' "strokeStyle" : "" ,' +
+                ' "strokeWidth" : 1 ,' +
+                ' "text" : "Simple Text" ,' +
+                ' "textAlign" : "left" ,' +
+                ' "textBackgroundColor" : "" ,' +
+                ' "textDecoration" : "" ,' +
+                ' "textShadow" : "" ,' +
+                ' "top" : ' + _mouseY + ' , ' +
+                ' "transparentCorners" : false ,' +
+                ' "type" : "text" ,' +
+                ' "useNative" : true ,' +
+                ' "visible" : true ,' +
+                ' "width" : 250 }';
+
             var clonedObject = null;
             var temp = null;
             if (_json_type == 'rect') {
@@ -145,10 +199,14 @@ $(function () {
             } else if (_json_type == 'circle') {
                 temp = JSON.parse(json_circle);
                 clonedObject = new fabric.Circle(temp);
-            }
-            else if (_json_type == 'triangle') {
+            } else if (_json_type == 'triangle') {
                 temp = JSON.parse(json_triangle);
                 clonedObject = new fabric.Triangle(temp);
+            } else if (_json_type == "text") {
+                clonedObject = new fabric.Text('Sample Text', {
+                    left: _mouseX,
+                    top: _mouseY
+                });
             } else {
                 console.log('unknown object type: ' + _json_type);
                 return;
@@ -182,6 +240,7 @@ $(function () {
         if (activeObject) {
             var clonedObject = null;
             var json = activeObject.toJSON();
+            console.log(json);
             var temp = null;
             if (json.type == 'rect') {
                 temp = JSON.parse(json_rect);
@@ -193,6 +252,11 @@ $(function () {
             else if (json.type == 'triangle') {
                 temp = JSON.parse(json_triangle);
                 clonedObject = new fabric.Triangle(temp);
+            } else if (json.type == "text") {
+                clonedObject = new fabric.Text('Sample Text', {
+                    left: _mouseX,
+                    top: _mouseY
+                });
             } else {
                 console.log('unknown object type: ' + json.type);
                 return;
@@ -227,8 +291,7 @@ $(function () {
             activeGroup.getObjects().forEach(function (object) {
 
                 var clonedObject = null;
-
-                var json = object.toJSON();
+                var json = object.toJSON();                
                 if (json.type == 'rect') {
                     clonedObject = new fabric.Rect(json);
                 } else if (json.type === 'circle') {
@@ -271,6 +334,31 @@ $(function () {
         } else {
             console.log('no object selected');
         }
-
-    });				
+    });
+    function deleteObjects(){
+        var activeObject = canvas.getActiveObject(),
+        activeGroup = canvas.getActiveGroup();
+        if (activeObject) {
+            if (confirm('Are you sure?')) {
+                canvas.remove(activeObject);
+            }
+        }
+        else if (activeGroup) {
+            if (confirm('Are you sure?')) {
+                var objectsInGroup = activeGroup.getObjects();
+                canvas.discardActiveGroup();
+                objectsInGroup.forEach(function(object) {
+                canvas.remove(object);
+                });
+            }
+        }
+    }
+    document.getElementById('textinput').addEventListener('change', function (e) {
+        var obj = canvas.getActiveObject();
+        if(!obj)
+            return;
+        obj.setText(e.target.value);
+        console.log(e.target.value);
+        canvas.renderAll();
+    });
 });

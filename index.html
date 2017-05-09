@@ -21,11 +21,17 @@
     <body>
         <div class="container">
             <div class="row">
-                <div id="dragBoard" class="col-sm-8">
-                    <button id=cloneSelected>Clone selected</button>
+                <div id="dragBoard" class="col-sm-9">                    
                     <canvas id="canvas"></canvas>
+                    <div class="button_rect">
+                        <button id="cloneSelected" class="btn btn-primary col-sm-3">Clone selected</button>
+                        <button id="select" class="btn btn-primary col-sm-3">Selection mode</button>
+                        <button id="draw" class="btn btn-primary col-sm-3">Drawing mode</button>
+                        <button id="delete" class="btn btn-danger col-sm-3">Delete selected</button>
+                    </div>
+                    <textarea id="textinput" rows="5"></textarea>
                 </div>
-                <div class="col-sm-4">
+                <div class="item-rect col-sm-3">
                     <div class="cloneBoard">
                         <ul>
 							<li>									
@@ -44,6 +50,12 @@
                                 <span class="mozgat f-szurke f75x60">
                                     <img src="img/circle.png"/>
                                     <p id="item_3">Item 3</p>
+                                </span>			  
+                            </li>
+                            <li>
+                                <span class="mozgat f-szurke f75x75">
+                                    <img src="img/text.png"/>
+                                    <p id="item_4">Item 4</p>
                                 </span>			  
                             </li>				
 						</ul>
