@@ -1,6 +1,6 @@
 # Fabric-Drag-n-Drop
 
-<img width="900" src="img/fabric-Drag-n-Drop.png" border="0" />
+<img width="900" height="1000" src="img/fabric-Drag-n-Drop.png" border="0" />
 
 ## About
 This project is Drag n Drop, Clone, Resize, Rotate and Delete using Fabric.js, Javascript and JQuery.
