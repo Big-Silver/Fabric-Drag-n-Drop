@@ -1,10 +1,15 @@
 .container {
     width: 800px;
-    height: 700px;    
+    height: 800px;    
     border: 1px solid black
 }
+
 #c {
     background-color: lightgray;
     width: 500px;
     height: 700px;
+}
+
+#canvas {
+    border: 1px solid #3c763d;
 }

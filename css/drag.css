@@ -1,0 +1,104 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+body {
+  background-color: transparent;
+  font-family: sans-serif;
+}
+.col {
+  float: left;
+  padding: 5px;
+  margin: 5px;
+}
+.container1 {
+  height: 500px;
+  width: 160px;
+  border: 1px solid #000000;
+}
+.cloneBoard {
+  height: 70%;
+}
+.container1 .cloneBoard ul {
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+  width: 100%;
+}
+.cloneBoard ul li {
+  height: 250px;
+}
+.removeBoard {
+  height: 150px;
+}
+.container2 {
+  height: 500px;
+  width: 600px;
+  border: 1px solid #000000;
+}
+.removeBoard {
+  background-color: pink;
+}
+.mozgat {
+  cursor: move;
+  margin-bottom: 7px;
+  position: absolute;
+  z-index: 1;
+  border: 1px solid #333;
+}
+
+span img {
+  height: 180px;
+  width: 180px;
+}
+/*.f75x30 {
+  width: 150px;
+  height: 90px;
+  line-height: 90px;
+  border-radius: 2px;
+}
+.f75x45 {
+  width: 150px;
+  height: 90px;
+  line-height: 90px;
+  border-radius: 2px;
+}
+.f75x60 {
+  width: 150px;
+  height: 90px;
+  line-height: 90px;
+  border-radius: 2px;
+}*/
+.f75x30 p, .f75x45 p, .f75x60 p {
+  font-family: sans-serif;
+  font-size: 18px;
+  color: Gainsboro;
+  text-align: center;
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, .4);
+}
+.jobb {
+  float: right;
+}
+.bal {
+  float: left;
+}
+/*.f-szurke {
+  background-color: #999999;
+}*/
+.item {
+  cursor: move;
+  border: 1px solid #333;
+  border-collapse: collapse;
+}
+#ch_dndBoard1 {
+  position: relative;
+  border: 1px solid #4A5157;
+  border-collapse: collapse;
+}
+#ch_dndBoard1 {
+  width: 600px;
+  height: 500px;
+}
+.snaptarget-hover {
+  background-color: #616A72;
+}
