@@ -62,10 +62,15 @@ $(function () {
             } else {
                 console.log("error is occured.")
             }
-
-            _mouseX = event.pageX - 300;
-            _mouseY = event.pageY - 20;
-
+            
+            var pos = $("#dragBoard");
+            _mouseX = event.pageX - pos.position().left;
+            _mouseY = event.pageY - pos.position().top;
+            
+            console.log(pos.position().left);
+            console.log(pos.position().top)
+            console.log(event.pageX);
+            console.log(event.pageY);
             json_rect = '{ "angle" : 0 ,' +
                 ' "fill" : "#faa" ,' +
                 ' "flipX" : false ,' +
