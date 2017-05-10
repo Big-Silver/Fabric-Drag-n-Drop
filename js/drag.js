@@ -50,7 +50,6 @@ $(function () {
         accept: ".mozgat",
         activeClass: "snaptarget-hover",
         drop: function (event, ui) {
-            console.log(ui);
             if (ui.draggable.context.lastElementChild.id == "item_1"){
                 _json_type = "rect";
             } else if (ui.draggable.context.lastElementChild.id == "item_2") {
@@ -67,10 +66,6 @@ $(function () {
             _mouseX = event.pageX - pos.position().left;
             _mouseY = event.pageY - pos.position().top;
             
-            console.log(pos.position().left);
-            console.log(pos.position().top)
-            console.log(event.pageX);
-            console.log(event.pageY);
             json_rect = '{ "angle" : 0 ,' +
                 ' "fill" : "#faa" ,' +
                 ' "flipX" : false ,' +
@@ -239,13 +234,12 @@ $(function () {
     });
 
     $('#cloneSelected').click(function() {
-        console.log('cloneSelected');
+
         var activeObject = canvas.getActiveObject();
         var activeGroup = canvas.getActiveGroup();
         if (activeObject) {
             var clonedObject = null;
             var json = activeObject.toJSON();
-            console.log(json);
             var temp = null;
             if (json.type == 'rect') {
                 temp = JSON.parse(json_rect);
@@ -284,15 +278,9 @@ $(function () {
             canvas.add(clonedObject);
             canvas.setActiveObject(clonedObject);
             canvas.renderAll();
-            console.log('selected object cloned');
-
         } else if (activeGroup) {
-            console.log('group selected');
-
             canvas.discardActiveGroup();
-
             var clonedObjects = [];
-
             activeGroup.getObjects().forEach(function (object) {
 
                 var clonedObject = null;
@@ -363,7 +351,6 @@ $(function () {
         if(!obj)
             return;
         obj.setText(e.target.value);
-        console.log(e.target.value);
         canvas.renderAll();
     });
 });
