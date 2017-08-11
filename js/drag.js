@@ -203,7 +203,7 @@ $(function () {
                 temp = JSON.parse(json_triangle);
                 clonedObject = new fabric.Triangle(temp);
             } else if (_json_type == "text") {
-                clonedObject = new fabric.Text('Sample Text', {
+                clonedObject = new fabric.IText('Sample Text', {
                     left: _mouseX,
                     top: _mouseY
                 });
